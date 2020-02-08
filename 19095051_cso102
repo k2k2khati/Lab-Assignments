@@ -1,0 +1,129 @@
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+void pushs1(int arr[],int&top1,int node)
+{   top1++;
+    arr[top1]=node;
+      
+}
+
+void pushs2(int arr[],int&top2,int node)
+{
+    top2--;
+    arr[top2]=node;
+}
+
+void pops1(int&top1)
+{
+    top1--;
+}
+
+void pops2(int&top2)
+{
+    top2++;
+}
+
+int main()
+{   
+    int N,M,top1=-1;
+    
+    cin>>N>>M;
+    int top2=N;
+    int arr[N],brr[3];
+    int arr2[50];
+    int k=0;
+    for(int i=0;i<M;i++)
+      {   
+          cin>>brr[0]>>brr[1]>>brr[2];
+      
+          if(brr[0]==1)
+            {    arr2[k++]=brr[2];
+                if(brr[1]==1)
+                  {    
+                      pushs1(arr,top1,brr[2]);
+                  }
+                else if(brr[1]==2)
+                  {   
+                      pushs2(arr,top2,brr[2]);
+                  }
+            }
+          else if(brr[0]==2)
+            {
+                if(brr[1]==1)
+                  {   
+                      pops1(top1);
+                  }
+                
+                else if(brr[1]==2)
+                  {   
+                      pops2(top2);
+                  }
+                  
+            }
+           
+               
+          
+      }
+      
+      
+      
+      //to find mean  in arr2
+      int sum=0;
+      for(int i=0;i<k;i++)
+        {
+            sum=arr2[i]+sum;            
+        }
+        float ab=(float)sum/(k);
+        cout<<ab<<" ";
+      //to find median 
+      
+      sort(arr2,arr2+(k-1));
+      
+      if(k%2==0)
+        {  int m=k/2;
+            cout<<(arr2[m-1]+arr2[m])/(float)2;
+        }
+      else if(k%2!=0)
+        {
+            int m=k/2;
+            cout<<arr2[m-1]<<" ";
+        }
+    // now to calculate mode
+     int max=0,save,count;
+     for(int i=0;i<k;i++)
+       {   count=0;
+           for(int j=0;j<k;j++)
+             {
+                 if(arr2[i]==arr[j])
+                   {
+                       count++;
+                   }
+             }
+         if(count>max)
+           {
+               max=count;
+               save=arr[i];
+           }
+       }
+    
+      cout<<save<<endl;
+      
+      for(int i=top1;i>=0;i--)
+        {
+            cout<<arr[i]<<" ";
+        }
+        cout<<endl;
+        
+      for(int i=top2;i<N;i++)
+        {
+            cout<<arr[i];
+        }
+        
+        
+       
+    return 0;
+}
+
